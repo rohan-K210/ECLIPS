@@ -32,14 +32,16 @@ def get_recommendations_api():
 @app.route('/execute_action', methods=['POST'])
 def execute_action_api():
     """Receives an action ID and processes the game state update."""
-    data = request.get_json()
-    action_id = data.get('action_id')
-    
-    if action_id is not None:
-        result = execute_action(action_id)
-        return jsonify(result)
-    
-    return jsonify({"status": "error", "message": "No action_id provided."}), 400
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"status": "error", "message": "A JSON object is required."}), 400
+
+    action_id = data.get("action_id")
+    if type(action_id) is not int:
+        return jsonify({"status": "error", "message": "action_id must be an integer."}), 400
+
+    result = execute_action(action_id)
+    return jsonify(result)
 
 if __name__ == '__main__':
     # Ensure your HTML file is named 'index.html' and is in a folder named 'templates' 
