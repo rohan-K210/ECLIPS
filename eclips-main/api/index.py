@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, render_template, request
 from nasa_data import get_anomaly_data, get_predictions, get_recommendations, execute_action
 
@@ -42,4 +44,4 @@ def execute_action_api():
 if __name__ == '__main__':
     # Ensure your HTML file is named 'index.html' and is in a folder named 'templates' 
     # OR in the same directory as app.py (if no 'templates' folder is used).
-    app.run(debug=True)
+    app.run(debug=os.environ.get("FLASK_DEBUG", "0") == "1")
