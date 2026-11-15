@@ -111,6 +111,26 @@ Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser. Flask debug
 
 The `/execute_action` endpoint expects a JSON object containing an integer `action_id`; malformed or missing values receive a `400` response. The endpoint is unauthenticated because this is a public educational simulation, so do not attach real operational controls or sensitive data to it.
 
+## Architecture
+
+The browser dashboard is the presentation layer. It polls the Flask API for
+telemetry, scenario predictions, and recommendations. The Python simulation
+module supplies the simulated readings and processes selected response actions.
+
+```mermaid
+flowchart TB
+    U["User"] --> UI["Browser dashboard<br/>HTML / CSS / JavaScript"]
+    UI -->|"GET /get_data"| API["Flask API"]
+    UI -->|"GET /get_predictions"| API
+    UI -->|"GET /get_recommendations"| API
+    UI -->|"POST /execute_action"| API
+    API --> SIM["Simulation logic<br/>nasa_data.py"]
+    SIM --> DATA["Simulated telemetry<br/>anomalies + subsystem state"]
+    DATA --> API
+    API -->|"JSON responses"| UI
+    UI -->|"Telemetry, alerts,<br/>charts and actions"| U
+```
+
 ## How the Simulation Works
 
 1. The Flask application serves the dashboard.
