@@ -97,7 +97,7 @@ From inside the `eclips-main/` directory, run:
 python -m api.index
 ```
 
-Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser. Flask debug mode is disabled by default; set `FLASK_DEBUG=1` only for local development when you explicitly need the debugger.
 
 ## Application Routes
 
@@ -109,7 +109,7 @@ Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
 | `/get_recommendations` | GET | Returns the available response actions |
 | `/execute_action` | POST | Processes a selected action |
 
-The `/execute_action` endpoint expects a JSON body containing an `action_id`.
+The `/execute_action` endpoint expects a JSON object containing an integer `action_id`; malformed or missing values receive a `400` response. The endpoint is unauthenticated because this is a public educational simulation, so do not attach real operational controls or sensitive data to it.
 
 ## How the Simulation Works
 
@@ -131,6 +131,7 @@ Review the deployment logs and test the dashboard and API routes after deploymen
 - Expand the set of life-support anomaly scenarios.
 - Improve the simulation model and make scenario outcomes more detailed.
 - Add automated tests for API routes and simulation behaviour.
+- Isolate simulation state per session or user before supporting concurrent independent missions.
 - Improve accessibility and mobile dashboard layouts.
 
 ## Disclaimer
