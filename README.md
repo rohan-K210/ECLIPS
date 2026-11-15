@@ -6,6 +6,11 @@ The project is designed as an interactive learning experience around the kinds o
 
 > **Note:** ECLIPS is an educational simulation. Its telemetry, crew information, anomaly scenarios, and recommendations are simulated and should not be used for real spacecraft operations or safety decisions. It is not an official NASA product.
 
+## Project preview
+
+Screenshots of the habitat dashboard, telemetry trends, and anomaly-response
+panels will be added when clean application captures are available.
+
 ## Overview
 
 The dashboard brings several habitat-support readings together in one interface, including:
@@ -144,6 +149,12 @@ flowchart TB
 The repository includes a `vercel.json` configuration for routing requests to the Flask application on Vercel. To deploy, import this repository into Vercel and configure the project so that the deployment root is the `eclips-main/` directory.
 
 Review the deployment logs and test the dashboard and API routes after deployment.
+
+## Demo walkthrough
+
+A concise walkthrough can show the dashboard readings, select an anomaly,
+review the resulting alerts and recommendations, and submit a simulated
+response action. All displayed values and mission details are fictional.
 
 ## Future Improvements
 
